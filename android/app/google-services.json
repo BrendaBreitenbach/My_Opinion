@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "616470818995",
+    "project_id": "myopinion-7cee7",
+    "storage_bucket": "myopinion-7cee7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616470818995:android:b3dceb11c3e043c66340c6",
+        "android_client_info": {
+          "package_name": "br.com.brendabreitenbach.my_opinion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmzfLuAhcjnQECLqdbTeNibQX3yHOSubo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
