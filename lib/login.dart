@@ -16,7 +16,6 @@ class _LoginState extends State<Login> {
   String _errorText = "";
   bool _displayError = false;
 
-  
   _login() {
     FirebaseAuth auth = FirebaseAuth.instance;
     String email = _emailController.text;
@@ -34,12 +33,12 @@ class _LoginState extends State<Login> {
       auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => const Home()), (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const Home()),
+            (route) => false);
       }).onError(
         (error, stackTrace) {
-          
           _emailController.clear();
           _passwordController.clear();
           setState(() {
@@ -71,12 +70,11 @@ class _LoginState extends State<Login> {
                   height: 200,
                 ),
                 const SizedBox(height: 30),
-                
-                
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person, color: Color(0xffa14d0c)),
+                    prefixIcon:
+                        const Icon(Icons.person, color: Color(0xffa14d0c)),
                     hintText: "Email",
                     hintStyle: const TextStyle(color: Color(0xffa14d0c)),
                     filled: true,
@@ -87,9 +85,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-                
                 TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
@@ -109,7 +105,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                
                 (_displayError)
                     ? Text(
                         _errorText,
@@ -117,7 +112,6 @@ class _LoginState extends State<Login> {
                       )
                     : const SizedBox.shrink(),
                 const SizedBox(height: 25),
-                
                 ElevatedButton(
                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
@@ -137,11 +131,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Signup()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Signup()));
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.transparent),

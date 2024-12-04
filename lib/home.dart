@@ -13,14 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   final Color primaryColor = const Color(0xFFA14D0C);
   final Color lightPrimary = const Color(0xFFBD8254);
   final Color backgroundColor = Colors.white;
 
-  
   List<QueryDocumentSnapshot> critics = [];
-  bool isLoading = true; 
+  bool isLoading = true;
 
   _logout() {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,7 +30,6 @@ class _HomeState extends State<Home> {
         (route) => false,
       );
     }).onError((error, stackTrace) {
-      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Erro ao realizar logout: $error"),
@@ -45,25 +42,22 @@ class _HomeState extends State<Home> {
   _buscarCriticas() async {
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
-      String _userId = auth.currentUser!.uid;
+      String userId = auth.currentUser!.uid;
       FirebaseFirestore db = FirebaseFirestore.instance;
 
-     
       QuerySnapshot snapshot = await db
           .collection("criticas")
-          .doc(_userId)
+          .doc(userId)
           .collection("minhas_criticas")
           .orderBy("data", descending: true)
           .limit(3)
           .get();
 
-      
       setState(() {
         critics = snapshot.docs;
-        isLoading = false; 
+        isLoading = false;
       });
     } catch (e) {
-      
       setState(() {
         isLoading = false;
       });
@@ -79,7 +73,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _buscarCriticas(); // Carrega as críticas do usuário logado
+    _buscarCriticas();
   }
 
   @override
@@ -89,7 +83,7 @@ class _HomeState extends State<Home> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: backgroundColor,
             border: Border(
               bottom: BorderSide(color: primaryColor, width: 2),
             ),
@@ -122,12 +116,10 @@ class _HomeState extends State<Home> {
         padding:
             const EdgeInsets.only(top: 16, bottom: 16, left: 20, right: 20),
         child: isLoading
-            ? const Center(
-                child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 
                   if (critics.isNotEmpty)
                     GestureDetector(
                       onTap: () {
@@ -148,16 +140,13 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   const SizedBox(height: 16),
-
-                  // Lista de críticas
                   Expanded(
                     child: ListView.builder(
-                      itemCount: critics.length, // Quantidade de críticas
+                      itemCount: critics.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final critic =
                             critics[index].data() as Map<String, dynamic>;
-
                         return Card(
                           color: lightPrimary.withAlpha(80),
                           shape: RoundedRectangleBorder(
@@ -171,7 +160,6 @@ class _HomeState extends State<Home> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Nome da crítica
                                 Text(
                                   critic['nome'] ?? 'Crítica ${index + 1}',
                                   style: TextStyle(
@@ -181,10 +169,8 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-
-                                // Nota
                                 Text(
-                                  "Nota: ${critic['nota']?.toStringAsFixed(1) ?? 'N/A'}",
+                                  "Nota: ${critic['nota']?.toStringAsFixed(1)}",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: primaryColor.withOpacity(0.8),
@@ -192,19 +178,16 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                //Categoria da
                                 Text(
-                                    "Categoria: ${critic['midia'] ?? 'N/A'}", // Mudança aqui
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black.withOpacity(0.6),
-                                    ),
+                                  "Categoria: ${critic['midia']}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black.withOpacity(0.6),
                                   ),
+                                ),
                                 const SizedBox(height: 8),
-                                // Descrição
                                 Text(
-                                  critic['descricao'] ??
-                                      'Resumo não disponível.',
+                                  critic['descricao'],
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(fontSize: 15),
@@ -223,14 +206,12 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.only(bottom: 40),
         child: FloatingActionButton(
           onPressed: () async {
-            // Navega para a tela de adicionar crítica e aguarda o retorno
             await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const AddCritic(),
               ),
             );
-            // Depois de voltar, chama a função para recarregar as críticas
             _buscarCriticas();
           },
           backgroundColor: primaryColor,

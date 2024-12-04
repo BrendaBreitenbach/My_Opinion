@@ -18,14 +18,13 @@ class _SignupState extends State<Signup> {
   String _errorText = "";
   bool _displayError = false;
 
- 
   _signup() {
     FirebaseAuth auth = FirebaseAuth.instance;
     String email = _emailController.text;
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
 
-    if (email == "" || password == "" || confirmPassword == ""){
+    if (email == "" || password == "" || confirmPassword == "") {
       setState(() {
         _displayError = true;
         _errorText = "Por favor, preencha todos os campos.";
@@ -44,7 +43,6 @@ class _SignupState extends State<Signup> {
           .then(
         (value) {
           if (value.user?.uid != null) {
-            
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Home()),
@@ -60,14 +58,13 @@ class _SignupState extends State<Signup> {
           }
         },
       ).onError((error, stackTrace) {
-        
         _emailController.clear();
         _passwordController.clear();
         _confirmPasswordController.clear();
         setState(() {
-              _displayError = true;
-              _errorText = "Falha em realizar cadastro. Tente novamente.";
-            });
+          _displayError = true;
+          _errorText = "Falha em realizar cadastro. Tente novamente.";
+        });
       });
     }
   }
@@ -75,7 +72,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+        body: SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height,
@@ -87,75 +84,76 @@ class _SignupState extends State<Signup> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("images/Logo.png", height: 180,),
+              Image.asset(
+                "images/Logo.png",
+                height: 180,
+              ),
               const SizedBox(
                 height: 25,
               ),
               const Text(
                 "Preencha seus dados.",
                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.normal,
-                  color: Color(0xffa14d0c)
-                ),
+                    fontSize: 24,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xffa14d0c)),
               ),
               const SizedBox(
                 height: 15,
               ),
               TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person, color: Color(0xffa14d0c)),
-                    hintText: "Email",
-                    hintStyle: const TextStyle(color: Color(0xffa14d0c)),
-                    filled: true,
-                    fillColor: const Color(0xfff3f3f3),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                controller: _emailController,
+                decoration: InputDecoration(
+                  prefixIcon:
+                      const Icon(Icons.person, color: Color(0xffa14d0c)),
+                  hintText: "Email",
+                  hintStyle: const TextStyle(color: Color(0xffa14d0c)),
+                  filled: true,
+                  fillColor: const Color(0xfff3f3f3),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                
-                const SizedBox(height: 15),
-                TextField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.key, color: Color(0xffa14d0c)),
-                    hintText: "Senha",
-                    hintStyle: const TextStyle(color: Color(0xffa14d0c)),
-                    filled: true,
-                    fillColor: const Color(0xfff3f3f3),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.key, color: Color(0xffa14d0c)),
+                  hintText: "Senha",
+                  hintStyle: const TextStyle(color: Color(0xffa14d0c)),
+                  filled: true,
+                  fillColor: const Color(0xfff3f3f3),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-
-                const SizedBox(height: 15),
-                TextField(
-                  controller: _confirmPasswordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.key, color: Color(0xffa14d0c)),
-                    hintText: "Confirma Senha",
-                    hintStyle: const TextStyle(color: Color(0xffa14d0c)),
-                    filled: true,
-                    fillColor: const Color(0xfff3f3f3),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: _confirmPasswordController,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.key, color: Color(0xffa14d0c)),
+                  hintText: "Confirma Senha",
+                  hintStyle: const TextStyle(color: Color(0xffa14d0c)),
+                  filled: true,
+                  fillColor: const Color(0xfff3f3f3),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -172,54 +170,52 @@ class _SignupState extends State<Signup> {
                 height: 25,
               ),
               ElevatedButton(
-                  onPressed: _signup,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffa14d0c),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 14,
-                      horizontal: 80,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                onPressed: _signup,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xffa14d0c),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 80,
                   ),
-                  child: const Text(
-                    "Criar",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                const SizedBox(height: 15),
-                // Botão de criar conta
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(context,
+                child: const Text(
+                  "Criar",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 15),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Login()));
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.transparent),
-                    foregroundColor: const Color(0xffa14d0c),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 14,
-                      horizontal: 26,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                },
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.transparent),
+                  foregroundColor: const Color(0xffa14d0c),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 26,
                   ),
-                  child: const Text(
-                    "Já tem uma conta",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
+                child: const Text(
+                  "Já tem uma conta",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-    )
-    );
+    ));
   }
 }
